@@ -8,7 +8,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.util.UnstableApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.victorstudio.victorpremium.databinding.ActivityMainBinding
-import com.victorstudio.victorpremium.firebase.ServerConfigListener
 import com.victorstudio.victorpremium.model.Canal
 import com.victorstudio.victorpremium.model.CategoriaConCanales
 import com.victorstudio.victorpremium.network.IptvRepository
@@ -28,8 +27,6 @@ class MainActivity : AppCompatActivity() {
 
     private var player: androidx.media3.exoplayer.ExoPlayer? = null
     private var gestureHelper: PlayerGestureHelper? = null
-    private lateinit var serverConfigListener: ServerConfigListener
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -38,11 +35,6 @@ class MainActivity : AppCompatActivity() {
         adapterCategorias = MainVerticalAdapter(emptyList()) { canal -> reproducirCanal(canal) }
         binding.recyclerCategorias.layoutManager = LinearLayoutManager(this)
         binding.recyclerCategorias.adapter = adapterCategorias
-
-        serverConfigListener = ServerConfigListener { servidores ->
-            // TODO: refrescar layout_selector_servidores con la lista nueva
-        }
-        serverConfigListener.iniciar()
 
         cargarCanales()
     }
@@ -107,6 +99,5 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         liberarPlayer()
-        serverConfigListener.detener()
     }
 }

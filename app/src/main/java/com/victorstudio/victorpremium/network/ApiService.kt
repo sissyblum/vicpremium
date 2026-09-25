@@ -15,10 +15,7 @@ interface ApiService {
     suspend fun obtenerCanales(@Url url: String): List<CategoriaConCanales>
 
     companion object {
-        // TODO: confirmar si seguís usando los mismos links de Dropbox
-        // o si para "Víctor Premium" vas a mover esto a tu propio hosting
-        // (por ejemplo, el mismo Firebase Storage que ya usás en tu
-        // app-store de Android TV).
+        // URLs de Dropbox donde están los JSON de canales.
         const val URL_CANALES_1 =
             "https://www.dropbox.com/scl/fi/zvi0u0yh7rp0lavnn5jic/canales.json?rlkey=lhigl3l6elznet6rvfm7nwz8y&st=2vd749mp&dl=1"
         const val URL_CANALES_2 =
