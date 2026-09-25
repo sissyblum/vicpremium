@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.VictorPremium" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/fondo_principal</item>
+        <item name="colorPrimary">@color/acento</item>
+    </style>
+
+    <style name="Theme.VictorPremium.Splash" parent="Theme.VictorPremium">
+        <item name="android:windowBackground">@color/fondo_splash</item>
+    </style>
+</resources>
