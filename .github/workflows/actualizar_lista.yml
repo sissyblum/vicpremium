@@ -1,0 +1,48 @@
+name: Actualizar lista Flow
+
+on:
+  workflow_dispatch:
+    inputs:
+      url_nueva:
+        description: "Pegá una URL completa de un canal Flow que te funcione"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Actualizar nico.txt
+        env:
+          FLOW_URL: ${{ inputs.url_nueva }}
+        run: |
+          python actualizar.py "$FLOW_URL"
+
+      - name: Guardar cambios
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add nico.txt
+
+          if git diff --cached --quiet; then
+            echo "No hubo cambios para guardar."
+            exit 0
+          fi
+
+          git commit -m "auto: actualizar URL base de Flow"
+          git push
